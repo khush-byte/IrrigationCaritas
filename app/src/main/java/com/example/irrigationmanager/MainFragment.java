@@ -3,10 +3,13 @@ package com.example.irrigationmanager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +26,9 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Button btn_plot1;
+    private Button btn_plot2;
+    private Button btn_plot3;
 
     public MainFragment() {
         // Required empty public constructor
@@ -59,6 +65,52 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        btn_plot1 = view.findViewById(R.id.btn_plot1);
+        btn_plot2 = view.findViewById(R.id.btn_plot2);
+        btn_plot3 = view.findViewById(R.id.btn_plot3);
+
+        btn_plot1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavOptions.Builder navBuilder =  new NavOptions.Builder();
+                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+                NavHostFragment.findNavController(MainFragment.this)
+                        .navigate(R.id.firstFragment, null, navBuilder.build());
+            }
+        });
+
+        btn_plot1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavOptions.Builder navBuilder =  new NavOptions.Builder();
+                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+                NavHostFragment.findNavController(MainFragment.this)
+                        .navigate(R.id.firstFragment, null, navBuilder.build());
+            }
+        });
+
+        btn_plot2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavOptions.Builder navBuilder =  new NavOptions.Builder();
+                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+                NavHostFragment.findNavController(MainFragment.this)
+                        .navigate(R.id.secondFragment, null, navBuilder.build());
+            }
+        });
+
+        btn_plot3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavOptions.Builder navBuilder =  new NavOptions.Builder();
+                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+                NavHostFragment.findNavController(MainFragment.this)
+                        .navigate(R.id.thirdFragment, null, navBuilder.build());
+            }
+        });
+
+        return view;
     }
 }

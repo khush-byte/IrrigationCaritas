@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    tools:context=".ThirdFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:elevation="5dp"
         android:gravity="center"
-        android:text="Тестовое поле №2\nПроектное орошение из канала"
-        android:textSize="16sp"
+        android:text="Выберите среднее значение\n высоты воды"
+        android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,82 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center"
-        android:text="Информация"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="24dp"
-        android:text="Культура посева: картофель\nТип орошения: канал\nСрок созревания посева: 95 дней"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center"
-        android:text="Статус посева"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="24dp"
-        android:text="Прошло дней: 1\nСтатус: необходимо орошение"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
@@ -114,12 +39,75 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:drawable/editbox_dropdown_light_frame"
         app:layout_constraintBottom_toTopOf="@+id/divider4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider3">
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <ImageButton
+            android:id="@+id/btn_up"
+            style="@android:style/Widget.Holo.Light.ImageButton"
+            android:layout_width="0dp"
+            android:layout_height="110dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/background_up1"
+            android:elevation="5dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="250dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="46dp"
+            android:layout_marginEnd="46dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/color_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tomson_field"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:drawable/spinner_background"
+                android:gravity="center"
+                android:text="10 см."
+                android:textSize="54sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/btn_down"
+            style="@android:style/Widget.Holo.Light.ImageButton"
+            android:layout_width="0dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/background_down1"
+            android:elevation="5dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -127,7 +115,7 @@
         android:id="@+id/divider4"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toTopOf="@+id/second_back"
         app:layout_constraintEnd_toEndOf="parent"
@@ -136,11 +124,12 @@
     <Button
         android:id="@+id/second_back"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="120dp"
-        android:layout_height="56dp"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginStart="5dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="26dp"
         android:backgroundTint="@color/color_primary"
+        android:fontFamily="sans-serif-light"
         android:text="НАЗАД"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -152,12 +141,13 @@
     <Button
         android:id="@+id/second_send"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="220dp"
-        android:layout_height="56dp"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="26dp"
         android:backgroundTint="@color/color_primary"
-        android:text="ПЕРЕДАТЬ ДАННЫЕ"
+        android:fontFamily="sans-serif-light"
+        android:text="ПРОДОЛЖИТЬ"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

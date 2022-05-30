@@ -1,6 +1,11 @@
 package com.example.irrigationmanager;
 
+import static com.example.irrigationmanager.MainActivity.isPump;
+import static com.example.irrigationmanager.MainActivity.minutes;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.constraintlayout.motion.widget.MotionLayout;
@@ -13,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.irrigationmanager.tools.NetworkManager;
 
@@ -33,7 +39,15 @@ public class FirstFragment extends Fragment {
     private String mParam2;
     private Button first_back;
     private Button first_send;
+    private Button first_start;
+    private Button first_stop;
+    private TextView count_field;
+    private TextView plot3_rec_min;
     boolean looped = true;
+    int rec_min = 1;
+    int min = 0;
+    boolean isAlarm = false;
+    MediaPlayer alarm;
 
     public FirstFragment() {
         // Required empty public constructor
@@ -66,6 +80,7 @@ public class FirstFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,10 +89,18 @@ public class FirstFragment extends Fragment {
 
         first_back = view.findViewById(R.id.first_back);
         first_send = view.findViewById(R.id.first_send);
+        first_start = view.findViewById(R.id.first_start);
+        first_stop = view.findViewById(R.id.first_stop);
+        count_field = view.findViewById(R.id.count_field);
+        plot3_rec_min = view.findViewById(R.id.plot3_rec_min);
+        minutes = 0;
+
+        plot3_rec_min.setText(rec_min+" мин.");
 
         first_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                alarm.stop();
                 NavOptions.Builder navBuilder =  new NavOptions.Builder();
                 navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
                 NavHostFragment.findNavController(FirstFragment.this)
@@ -85,18 +108,7 @@ public class FirstFragment extends Fragment {
             }
         });
 
-
-        final int[] num = {0};
-        Handler handler = new Handler();
-        Runnable refresh = new Runnable() {
-            @Override
-            public void run() {
-                num[0]++;
-                handler.postDelayed(this, 1000);
-            }
-        };
-        handler.postDelayed(refresh, 1000);
-
+        first_stop.setEnabled(false);
 
         MotionLayout motionLayout = view.findViewById(R.id.motionLayout1);
 
@@ -132,6 +144,74 @@ public class FirstFragment extends Fragment {
             public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v)
             {
 
+            }
+        });
+
+        Handler handler = new Handler();
+        final Runnable[] refresh = new Runnable[1];
+
+        alarm = MediaPlayer.create(getContext(), R.raw.alarm);
+        alarm.setLooping(true);
+
+        first_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                motionLayout.transitionToStart();
+                first_start.setEnabled(false);
+                first_stop.setEnabled(true);
+                first_send.setEnabled(false);
+
+                final int[] num = {0};
+                final String[] sec = {""};
+                refresh[0] = new Runnable() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void run() {
+                        num[0]++;
+                        if(num[0]==60){
+                            min++;
+                            num[0] = 0;
+                        }
+                        sec[0] = num[0]+"";
+                        if(sec[0].length()<2) sec[0] = "0" + sec[0];
+                        count_field.setText(min+" мин. "+sec[0]+" сек.");
+
+                        if(rec_min!= 0 && rec_min == min && !isAlarm){
+                            alarm.start();
+                            isAlarm = true;
+                        }
+
+                        handler.postDelayed(this, 1000);
+                    }
+                };
+                handler.postDelayed(refresh[0], 1000);
+            }
+        });
+
+        first_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isPump = true;
+                NavOptions.Builder navBuilder =  new NavOptions.Builder();
+                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+                NavHostFragment.findNavController(FirstFragment.this)
+                        .navigate(R.id.thirdFragment, null, navBuilder.build());
+            }
+        });
+
+        first_stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                motionLayout.transitionToEnd();
+                handler.removeCallbacks(refresh[0]);
+                isPump = true;
+                minutes = min;
+                alarm.stop();
+
+                NavOptions.Builder navBuilder =  new NavOptions.Builder();
+                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+                NavHostFragment.findNavController(FirstFragment.this)
+                        .navigate(R.id.thirdFragment, null, navBuilder.build());
             }
         });
 

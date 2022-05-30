@@ -30,4 +30,14 @@
         android:name="com.example.irrigationmanager.ThirdFragment"
         android:label="fragment_third"
         tools:layout="@layout/fragment_third" />
+    <fragment
+        android:id="@+id/fourthFragment"
+        android:name="com.example.irrigationmanager.FourthFragment"
+        android:label="fragment_fourth"
+        tools:layout="@layout/fragment_fourth" />
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.example.irrigationmanager.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" />
 </navigation>

@@ -4,15 +4,15 @@
         <layer-list>
             <item android:right="0dp" android:top="0dp">
                 <shape>
-                    <corners android:radius="9dp" />
+                    <corners android:radius="6dp" />
                     <gradient android:angle="270" android:endColor="#3DB9F1" android:startColor="#54BFEF" />
                 </shape>
             </item>
-            <item android:bottom="6dp" android:left="6dp" android:right="6dp" android:top="6dp">
+            <item android:bottom="4dp" android:left="4dp" android:right="4dp" android:top="4dp">
                 <shape>
-                    <solid android:color="#F5FCFF" />
-                    <corners android:radius="4.2dp" />
-                    <stroke android:width="0.2dip" android:color="#809F9F9F" />
+                    <gradient android:angle="200" android:endColor="#FFFFFF" android:centerColor="#F7FEFF" android:startColor="#F7FEFF" />
+                    <corners android:radius="3dp" />
+                    <stroke android:width="0.5dp" android:color="#939292" />
 
                 </shape>
             </item>

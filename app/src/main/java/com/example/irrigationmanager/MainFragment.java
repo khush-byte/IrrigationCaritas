@@ -1,7 +1,13 @@
 package com.example.irrigationmanager;
 
+import static com.example.irrigationmanager.MainActivity.isPump;
+import static com.example.irrigationmanager.MainActivity.isSend;
+import static com.example.irrigationmanager.MainActivity.plot_number;
+import static com.example.irrigationmanager.MainActivity.water_level;
+
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
@@ -26,9 +32,9 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button btn_plot1;
-    private Button btn_plot2;
-    private Button btn_plot3;
+    private ConstraintLayout btn_plot1;
+    private ConstraintLayout btn_plot2;
+    private ConstraintLayout btn_plot3;
 
     public MainFragment() {
         // Required empty public constructor
@@ -67,13 +73,16 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        btn_plot1 = view.findViewById(R.id.btn_plot1);
-        btn_plot2 = view.findViewById(R.id.btn_plot2);
-        btn_plot3 = view.findViewById(R.id.btn_plot3);
+        btn_plot1 = view.findViewById(R.id.plot_one);
+        btn_plot2 = view.findViewById(R.id.plot_two);
+        btn_plot3 = view.findViewById(R.id.plot_three);
+        isSend = false;
+        isPump = false;
 
         btn_plot1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isPump = false;
                 NavOptions.Builder navBuilder =  new NavOptions.Builder();
                 navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
                 NavHostFragment.findNavController(MainFragment.this)
@@ -84,16 +93,18 @@ public class MainFragment extends Fragment {
         btn_plot1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                plot_number = 1;
                 NavOptions.Builder navBuilder =  new NavOptions.Builder();
                 navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
                 NavHostFragment.findNavController(MainFragment.this)
-                        .navigate(R.id.firstFragment, null, navBuilder.build());
+                        .navigate(R.id.secondFragment, null, navBuilder.build());
             }
         });
 
         btn_plot2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                plot_number = 2;
                 NavOptions.Builder navBuilder =  new NavOptions.Builder();
                 navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
                 NavHostFragment.findNavController(MainFragment.this)
@@ -104,10 +115,12 @@ public class MainFragment extends Fragment {
         btn_plot3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                plot_number = 3;
+                water_level = 0;
                 NavOptions.Builder navBuilder =  new NavOptions.Builder();
                 navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
                 NavHostFragment.findNavController(MainFragment.this)
-                        .navigate(R.id.thirdFragment, null, navBuilder.build());
+                        .navigate(R.id.firstFragment, null, navBuilder.build());
             }
         });
 

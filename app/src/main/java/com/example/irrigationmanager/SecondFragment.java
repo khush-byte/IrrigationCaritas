@@ -1,5 +1,10 @@
 package com.example.irrigationmanager;
 
+import static com.example.irrigationmanager.MainActivity.plot_number;
+import static com.example.irrigationmanager.MainActivity.water_level;
+
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,16 +12,23 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.example.irrigationmanager.tools.MyArray;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SecondFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SecondFragment extends Fragment {
+public class SecondFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +40,12 @@ public class SecondFragment extends Fragment {
     private String mParam2;
     private Button second_back;
     private Button second_send;
+    private ImageButton btn_down;
+    private ImageButton btn_up;
+    private TextView tomson_field;
+    int index = 0;
+    //String tomson[] = {"3", "4", "5", "6", "7", "8", "9", "10", "12", "14", "16", "18", "20", "25", "30"};
+    ArrayList<MyArray> tomsons = new ArrayList<>();
 
     public SecondFragment() {
         // Required empty public constructor
@@ -60,6 +78,7 @@ public class SecondFragment extends Fragment {
         }
     }
 
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +87,26 @@ public class SecondFragment extends Fragment {
 
         second_back = view.findViewById(R.id.second_back);
         second_send = view.findViewById(R.id.second_send);
+        btn_down = view.findViewById(R.id.btn_down);
+        btn_up = view.findViewById(R.id.btn_up);
+        tomson_field = view.findViewById(R.id.tomson_field);
+
+        setTomson(3, 0.28);
+        setTomson(4, 0.47);
+        setTomson(5, 0.81);
+        setTomson(6, 1.30);
+        setTomson(7, 1.90);
+        setTomson(8, 2.60);
+        setTomson(9, 3.50);
+        setTomson(10, 4.55);
+        setTomson(12, 7.14);
+        setTomson(14, 10.45);
+        setTomson(16, 14.54);
+        setTomson(18, 19.43);
+        setTomson(20, 25.29);
+        setTomson(25, 43.82);
+        setTomson(30, 68.7);
+        setTomson(35, 100.4);
 
         second_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +117,72 @@ public class SecondFragment extends Fragment {
                         .navigate(R.id.mainFragment, null, navBuilder.build());
             }
         });
+
+        second_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavOptions.Builder navBuilder =  new NavOptions.Builder();
+                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+
+                water_level = tomsons.get(index).num;
+
+                if(plot_number == 2) {
+                    NavHostFragment.findNavController(SecondFragment.this)
+                            .navigate(R.id.fourthFragment, null, navBuilder.build());
+                }else{
+                    NavHostFragment.findNavController(SecondFragment.this)
+                            .navigate(R.id.thirdFragment, null, navBuilder.build());
+                }
+            }
+        });
+
+        tomson_field.setText(tomsons.get(index).num + " см.");
+        btn_up.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    //btn_down.setBackgroundResource(R.drawable.background_down1);
+                    btn_up.setBackgroundResource(R.drawable.background_up2);
+                    if(index < tomsons.size()-1) index++;
+                    tomson_field.setText(tomsons.get(index).num + " см.");
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //btn_down.setBackgroundResource(R.drawable.background_down1);
+                    btn_up.setBackgroundResource(R.drawable.background_up1);
+                }
+                return false;
+            }
+        });
+
+        btn_down.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    //btn_down.setBackgroundResource(R.drawable.background_down1);
+                    btn_down.setBackgroundResource(R.drawable.background_down2);
+
+                    if(index > 0) index--;
+                    else index = 0;
+                    tomson_field.setText(tomsons.get(index).num + " см.");
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //btn_down.setBackgroundResource(R.drawable.background_down1);
+                    btn_down.setBackgroundResource(R.drawable.background_down1);
+                }
+                return false;
+            }
+        });
+
         return view;
+    }
+
+    private void setTomson(int num, double value){
+        MyArray array = new MyArray();
+        array.num = num;
+        array.value = value;
+        tomsons.add(array);
     }
 }

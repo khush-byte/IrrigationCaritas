@@ -10,10 +10,10 @@
         android:id="@+id/plot_one"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/plot_okey"
         android:elevation="3dp"
         app:layout_constraintBottom_toTopOf="@+id/plot_two"
@@ -42,8 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
-            android:text="Поле №1. Проектный (насос)"
-            android:textSize="21sp"
+            android:text="Поле №1. Контрольный (канал)"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,64 +54,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Посев: Картофель"
-            android:textSize="21sp"
+            android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Статус:"
-            android:textSize="21sp"
-            android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-        <TextView
-            android:id="@+id/state_field1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="20dp"
-            android:text="Орошение не нужно!"
-            android:textColor="#18A50D"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-        <Button
-            android:id="@+id/btn_plot1"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="14dp"
-            android:backgroundTint="@color/color_primary"
-            android:elevation="4dp"
-            android:fontFamily="sans-serif-light"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:text="НАЧАТЬ ОРОШЕНИЕ"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="TouchTargetSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/plot_two"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/plot_apply"
         android:elevation="3dp"
         app:layout_constraintBottom_toTopOf="@+id/plot_three"
@@ -140,7 +97,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
             android:text="Поле №2. Проектный (канал)"
-            android:textSize="21sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -151,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Посев: Картофель"
-            android:textSize="21sp"
+            android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -162,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Статус:"
-            android:textSize="21sp"
+            android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -173,32 +130,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="20dp"
-            android:text="Необходимо орошение!"
-            android:textColor="#FF5722"
-            android:textSize="21sp"
+            android:text="Орошение не нужно!"
+            android:textColor="#18A50D"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-        <Button
-            android:id="@+id/btn_plot2"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="14dp"
-            android:backgroundTint="@color/color_primary"
-            android:elevation="4dp"
-            android:fontFamily="sans-serif-light"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:text="НАЧАТЬ ОРОШЕНИЕ"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -206,9 +144,9 @@
         android:id="@+id/plot_three"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="26dp"
         android:background="@drawable/plot_apply"
         android:elevation="3dp"
@@ -237,8 +175,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
-            android:text="Поле №3. Контрольный (канал)"
-            android:textSize="21sp"
+            android:text="Поле №3. Проектный (насос)"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -249,7 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Посев: Картофель"
-            android:textSize="21sp"
+            android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -260,7 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Статус:"
-            android:textSize="21sp"
+            android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -273,30 +211,11 @@
             android:layout_marginEnd="20dp"
             android:text="Необходимо орошение!"
             android:textColor="#FF5722"
-            android:textSize="21sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView15"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-        <Button
-            android:id="@+id/btn_plot3"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="14dp"
-            android:backgroundTint="@color/color_primary"
-            android:elevation="4dp"
-            android:fontFamily="sans-serif-light"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="НАЧАТЬ ОРОШЕНИЕ"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

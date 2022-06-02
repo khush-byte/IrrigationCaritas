@@ -5,6 +5,7 @@ import static com.example.irrigationmanager.MainActivity.minutes;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
@@ -14,13 +15,21 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.irrigationmanager.tools.MyArray;
 import com.example.irrigationmanager.tools.NetworkManager;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +51,8 @@ public class FirstFragment extends Fragment {
     private Button first_start;
     private Button first_stop;
     private TextView count_field;
-    private TextView plot3_rec_min;
+    private TextView plot3_rec_min, text_status_plot3;
+    ArrayList<MyArray> rec_data;
     boolean looped = true;
     int rec_min = 1;
     int min = 0;
@@ -93,7 +103,13 @@ public class FirstFragment extends Fragment {
         first_stop = view.findViewById(R.id.first_stop);
         count_field = view.findViewById(R.id.count_field);
         plot3_rec_min = view.findViewById(R.id.plot3_rec_min);
+        text_status_plot3 = view.findViewById(R.id.text_status_plot3);
         minutes = 0;
+        rec_data = new ArrayList<>();
+
+        SharedPreferences pref = view.getContext().getSharedPreferences("root_data", 0);
+        String response = pref.getString("response", "");
+        parseResponse(response);
 
         plot3_rec_min.setText(rec_min+" мин.");
 
@@ -109,6 +125,17 @@ public class FirstFragment extends Fragment {
         });
 
         first_stop.setEnabled(false);
+        int state = rec_data.get(0).p3_state;
+
+        if(state==1) {
+            String sourceString = "Прошло дней: " + rec_data.get(0).count_days + "<br>Орошение: <b>необходимо орошение</b>";
+            text_status_plot3.setText(Html.fromHtml(sourceString));
+            plot3_rec_min.setText(rec_data.get(0).p3_need_min+ " мин.");
+        }else{
+            String sourceString = "Прошло дней: " + rec_data.get(0).count_days + "<br>Орошение: <b>орошени не нужно</b>";
+            text_status_plot3.setText(Html.fromHtml(sourceString));
+            plot3_rec_min.setText("0 мин.");
+        }
 
         MotionLayout motionLayout = view.findViewById(R.id.motionLayout1);
 
@@ -216,5 +243,25 @@ public class FirstFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void parseResponse(String response){
+        try {
+            JSONArray array = new JSONArray(response);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject fromJson = array.getJSONObject(i);
+                MyArray data = new MyArray();
+                data.select_date = fromJson.getString("select_date");
+                data.count_days = fromJson.getInt("count_days");
+                data.p2_state = fromJson.getInt("p2_state");
+                data.p3_state = fromJson.getInt("p3_state");
+                data.p2_need_mm = fromJson.getInt("p2_irrig_need_mm");
+                data.p3_need_min = fromJson.getInt("p3_rec_time_min");
+                rec_data.add(data);
+            }
+            Log.i("massive" , String.valueOf(rec_data.size()));
+        } catch(Exception e){
+            Log.e("Debug", "Error in parsing");
+        }
     }
 }

@@ -127,11 +127,13 @@ public class SecondFragment extends Fragment{
                 water_level = tomsons.get(index).num;
 
                 if(plot_number == 2) {
-                    NavHostFragment.findNavController(SecondFragment.this)
-                            .navigate(R.id.fourthFragment, null, navBuilder.build());
+                    /*NavHostFragment.findNavController(SecondFragment.this)
+                            .navigate(R.id.fourthFragment, null, navBuilder.build());*/
+                    ((MainActivity) requireActivity()).getRecPlot2();
                 }else{
                     NavHostFragment.findNavController(SecondFragment.this)
                             .navigate(R.id.thirdFragment, null, navBuilder.build());
+
                 }
             }
         });

@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/text_status_plot3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -107,7 +107,7 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        app:layout_constraintTop_toBottomOf="@+id/text_status_plot3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"

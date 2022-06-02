@@ -8,7 +8,7 @@
                     <gradient android:angle="270" android:endColor="#3DB9F1" android:startColor="#54BFEF" />
                 </shape>
             </item>
-            <item android:bottom="4dp" android:left="4dp" android:right="4dp" android:top="4dp">
+            <item android:drawable="@drawable/box" android:bottom="4dp" android:left="4dp" android:right="4dp" android:top="4dp">
                 <shape>
                     <gradient android:angle="200" android:endColor="#FFFFFF" android:centerColor="#F7FEFF" android:startColor="#F7FEFF" />
                     <corners android:radius="3dp" />

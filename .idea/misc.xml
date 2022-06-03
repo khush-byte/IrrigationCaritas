@@ -9,13 +9,20 @@
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/background_up1.xml" value="0.1565" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/background_up2.xml" value="0.1565" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/btn_start.xml" value="0.1565" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/btn_start_bg.xml" value="0.148" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/btn_start_click.xml" value="0.148" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/button_off.xml" value="0.1305" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/button_on.xml" value="0.1565" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/edit_text_bg.xml" value="0.1565" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/ic_baseline_check_circle.xml" value="0.1565" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down.xml" value="0.1565" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/ic_baseline_keyboard_arrow_up.xml" value="0.1565" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/ic_baseline_lock.xml" value="0.1565" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/ic_baseline_person.xml" value="0.1565" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/ic_baseline_vpn_key.xml" value="0.1565" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/plot_apply.xml" value="0.1565" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/plot_okey.xml" value="0.1305" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/activity_reg.xml" value="0.22135416666666666" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_auth.xml" value="0.25" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_first.xml" value="0.4" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_fourth.xml" value="0.25" />

@@ -2,6 +2,7 @@ package com.example.irrigationmanager;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -41,6 +42,7 @@ public class AuthFragment extends Fragment implements View.OnTouchListener{
     private String mParam1;
     private String mParam2;
     private String pin = "";
+    SharedPreferences pref;
 
     private Button[] btn = new Button[9];
     private Button btn_unfocus;
@@ -84,6 +86,7 @@ public class AuthFragment extends Fragment implements View.OnTouchListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_auth, container, false);
+        pref = view.getContext().getSharedPreferences("root_data", 0);
 
         for(int i = 0; i < btn.length; i++){
             btn[i] = (Button) view.findViewById(btn_id[i]);
@@ -167,7 +170,9 @@ public class AuthFragment extends Fragment implements View.OnTouchListener{
 
     @SuppressLint("SetTextI18n")
     private void checkPin(String _pin){
-        if(_pin.equals("4762")) {
+        String check_pin = pref.getString("pin", "");
+
+        if(_pin.equals(check_pin)) {
             pin = "";
             //Navigation.findNavController(requireActivity(),R.id.nav_host_main).navigate(R.id.mainFragment);
             // close this activity

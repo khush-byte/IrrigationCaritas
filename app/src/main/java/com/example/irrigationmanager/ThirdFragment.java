@@ -6,16 +6,13 @@ import static com.example.irrigationmanager.MainActivity.isSend;
 import static com.example.irrigationmanager.MainActivity.minutes;
 import static com.example.irrigationmanager.MainActivity.plot_number;
 import static com.example.irrigationmanager.MainActivity.water_level;
-
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.constraintlayout.solver.state.State;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -115,6 +110,10 @@ public class ThirdFragment extends Fragment {
 
         report_title.setText("Тестовое поле №"+plot_number);
         report_date.setText("Время: " + date);
+
+        SharedPreferences pref = view.getContext().getSharedPreferences("root_data", 0);
+        String user_name = pref.getString("login", "");
+        report_person.setText(user_name);
 
         if(minutes!=0) report_min.setText(minutes+"");
         report_tomson.setText(water_level+"");

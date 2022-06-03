@@ -112,6 +112,7 @@ public class FirstFragment extends Fragment {
         parseResponse(response);
 
         plot3_rec_min.setText(rec_min+" мин.");
+        rec_min = rec_data.get(0).p3_need_min;
 
         first_back.setOnClickListener(new View.OnClickListener() {
             @Override

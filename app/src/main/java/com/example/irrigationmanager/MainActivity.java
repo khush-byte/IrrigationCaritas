@@ -1,11 +1,8 @@
 package com.example.irrigationmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,19 +11,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.irrigationmanager.tools.MyArray;
 import com.example.irrigationmanager.tools.NetworkManager;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -38,10 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 
@@ -80,12 +70,6 @@ public class MainActivity extends AppCompatActivity {
         setTime();
         getRecommendation();
 
-        /*if (!NetworkManager.isNetworkAvailable(getApplicationContext())) {
-            Intent myIntent = new Intent(getApplicationContext(), CheckActivity.class);
-            startActivity(myIntent);
-            finish();
-        }*/
-
         Handler handler = new Handler();
         Runnable refresh = new Runnable() {
             @Override
@@ -94,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent myIntent = new Intent(getApplicationContext(), CheckActivity.class);
                     startActivity(myIntent);
                     activity.finish();
-                }else{
+                } else {
                     setTime();
                     handler.postDelayed(this, 1000);
                 }
@@ -104,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    private void setTime(){
+    private void setTime() {
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df1 = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault());
         SimpleDateFormat df2 = new SimpleDateFormat("EEEE", Locale.getDefault());
@@ -113,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         date = df1.format(c);
         select_date = df3.format(c);
         day = day.substring(0, 1).toUpperCase() + day.substring(1);
-        data_field.setText(day +", "+date);
+        data_field.setText(day + ", " + date);
     }
 
     public void getRecommendation() {
@@ -129,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-                    conn.setRequestProperty("Accept","application/json");
+                    conn.setRequestProperty("Accept", "application/json");
                     conn.setDoOutput(true);
                     conn.setDoInput(true);
 
@@ -138,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     jsonParam.put("datetime", currentDate);
                     jsonParam.put("select_date", select_date);
 
-                    Log.i("JSON", jsonParam.toString());
+                    //Log.i("JSON", jsonParam.toString());
                     DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                     os.writeBytes(jsonParam.toString());
 
@@ -151,34 +135,14 @@ public class MainActivity extends AppCompatActivity {
                     StringBuilder sb = new StringBuilder();
                     String line;
                     while ((line = br.readLine()) != null) {
-                        sb.append(line+"\n");
+                        sb.append(line + "\n");
                     }
                     br.close();
                     conn.disconnect();
                     String response = sb.toString();
 
                     if (response != null) {
-                        Log.i("MSG" , response);
-
-                        /*try {
-                            JSONArray array = new JSONArray(response);
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject fromJson = array.getJSONObject(i);
-                                MyArray data = new MyArray();
-                                data.select_date = fromJson.getString("select_date");
-                                data.count_days = fromJson.getInt("count_days");
-                                data.p2_state = fromJson.getInt("p2_state");
-                                data.p3_state = fromJson.getInt("p3_state");
-                                data.p2_need_mm = fromJson.getInt("p2_irrig_need_mm");
-                                data.p3_need_min = fromJson.getInt("p3_rec_time_min");
-                                rec_data.add(data);
-                            }
-                            Intent intent = new Intent();
-                            intent.putCharSequenceArrayListExtra("data", rec_data);
-                            Log.i("massive" , String.valueOf(rec_data.size()));
-                        } catch(Exception e){
-                            Log.e("Debug", "Error in parsing");
-                        }*/
+                        Log.i("MSG", response);
 
                         SharedPreferences.Editor editor = activity.getApplicationContext().getSharedPreferences("root_data", 0).edit();
                         editor.putString("response", response);
@@ -222,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-                    conn.setRequestProperty("Accept","application/json");
+                    conn.setRequestProperty("Accept", "application/json");
                     conn.setDoOutput(true);
                     conn.setDoInput(true);
 
@@ -231,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                     jsonParam.put("datetime", currentDate);
                     jsonParam.put("tomson", water_level);
 
-                    Log.i("JSON", jsonParam.toString());
+                    //Log.i("JSON", jsonParam.toString());
                     DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                     os.writeBytes(jsonParam.toString());
 
@@ -250,8 +214,8 @@ public class MainActivity extends AppCompatActivity {
                     conn.disconnect();
                     String response = sb.toString();
 
-                    String min =  response.replaceAll("[^0-9]", "");
-                    Log.i("MSG2" , min + " мин.");
+                    String min = response.replaceAll("[^0-9]", "");
+                    //Log.i("MSG2", min + " мин.");
                     //plot2_rec_min.setText(min + " мин.");
                     minutes = Integer.parseInt(min);
 
@@ -267,19 +231,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         NavController navController = Navigation.findNavController(activity, R.id.nav_host_main);
         String fname = Objects.requireNonNull(Objects.requireNonNull(navController.getCurrentDestination()).getLabel()).toString();
-        Log.i("MSG2" , fname);
+        Log.i("MSG2", fname);
 
-        if(fname.equals("fragment_auth")) activity.finish();
-        else if(fname.equals("fragment_main")) activity.finish();
-        else if(fname.equals("fragment_second")) navController.navigate(R.id.mainFragment);
-        else if(fname.equals("fragment_third")) navController.navigate(R.id.mainFragment);
-        else if(fname.equals("fragment_info")) navController.navigate(R.id.mainFragment);
-        else if(fname.equals("fragment_fourth")) navController.navigate(R.id.secondFragment);
-        else if(fname.equals("fragment_first")) navController.navigate(R.id.mainFragment);
+        if (fname.equals("fragment_auth")) activity.finish();
+        else if (fname.equals("fragment_main")) activity.finish();
+        else if (fname.equals("fragment_second")) navController.navigate(R.id.mainFragment);
+        else if (fname.equals("fragment_third")) navController.navigate(R.id.mainFragment);
+        else if (fname.equals("fragment_info")) navController.navigate(R.id.mainFragment);
+        else if (fname.equals("fragment_fourth")) navController.navigate(R.id.secondFragment);
+        else if (fname.equals("fragment_first")) navController.navigate(R.id.mainFragment);
         else navController.navigate(R.id.mainFragment);
     }
 }

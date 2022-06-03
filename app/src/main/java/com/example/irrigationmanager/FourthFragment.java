@@ -107,14 +107,23 @@ public class FourthFragment extends Fragment {
         String response = pref.getString("response", "");
         parseResponse(response);
 
-        int state = rec_data.get(0).p2_state;
+        int state;
+        int days;
+
+        if(rec_data.size()!=0) {
+            state = rec_data.get(0).p2_state;
+            days = rec_data.get(0).count_days;
+        }else{
+            state = 0;
+            days = 0;
+        }
 
         if(state==1) {
-            String sourceString = "Прошло дней: " + rec_data.get(0).count_days + "<br>Орошение: <b>необходимо орошение</b>";
+            String sourceString = "Прошло дней: " + days+ "<br>Орошение: <b>необходимо орошение</b>";
             text_status_plot2.setText(Html.fromHtml(sourceString));
             plot2_rec_min.setText(minutes + " мин.");
         }else{
-            String sourceString = "Прошло дней: " + rec_data.get(0).count_days + "<br>Орошение: <b>орошени не нужно</b>";
+            String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>орошени не нужно</b>";
             text_status_plot2.setText(Html.fromHtml(sourceString));
             plot2_rec_min.setText("0 мин.");
         }

@@ -1,9 +1,11 @@
 package com.example.irrigationmanager;
 
+import static com.example.irrigationmanager.MainActivity.minutes;
 import static com.example.irrigationmanager.MainActivity.plot_number;
 import static com.example.irrigationmanager.MainActivity.water_level;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +23,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.irrigationmanager.tools.MyArray;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -43,6 +49,7 @@ public class SecondFragment extends Fragment{
     private ImageButton btn_down;
     private ImageButton btn_up;
     private TextView tomson_field;
+    ArrayList<MyArray> rec_data;
     int index = 0;
     //String tomson[] = {"3", "4", "5", "6", "7", "8", "9", "10", "12", "14", "16", "18", "20", "25", "30"};
     ArrayList<MyArray> tomsons = new ArrayList<>();
@@ -90,6 +97,11 @@ public class SecondFragment extends Fragment{
         btn_down = view.findViewById(R.id.btn_down);
         btn_up = view.findViewById(R.id.btn_up);
         tomson_field = view.findViewById(R.id.tomson_field);
+        rec_data = new ArrayList<>();
+
+        SharedPreferences pref = view.getContext().getSharedPreferences("root_data", 0);
+        String response = pref.getString("response", "");
+        parseResponse(response);
 
         setTomson(3, 0.28);
         setTomson(4, 0.47);
@@ -127,9 +139,13 @@ public class SecondFragment extends Fragment{
                 water_level = tomsons.get(index).num;
 
                 if(plot_number == 2) {
-                    /*NavHostFragment.findNavController(SecondFragment.this)
-                            .navigate(R.id.fourthFragment, null, navBuilder.build());*/
-                    ((MainActivity) requireActivity()).getRecPlot2();
+                    /*second_send.setText("ЖДИТЕ...");
+                    second_send.setEnabled(false);
+                    ((MainActivity) requireActivity()).getRecPlot2();*/
+
+                    minutes = countMinutes(tomsons.get(index).value, water_level);
+                    NavHostFragment.findNavController(SecondFragment.this)
+                            .navigate(R.id.fourthFragment, null, navBuilder.build());
                 }else{
                     NavHostFragment.findNavController(SecondFragment.this)
                             .navigate(R.id.thirdFragment, null, navBuilder.build());
@@ -186,5 +202,34 @@ public class SecondFragment extends Fragment{
         array.num = num;
         array.value = value;
         tomsons.add(array);
+    }
+
+    private int countMinutes(double value, int level){
+        if(value!=0){
+            Log.i("Debug", value+"; "+level);
+            double m3_min = value * 60 / 1000;
+            int m3_need = rec_data.get(0).p2_need_m3;
+            double minute_need = m3_need / m3_min;
+            return (int)Math.ceil(minute_need);
+        }else return 0;
+    }
+
+    private void parseResponse(String response) {
+        try {
+            JSONArray array = new JSONArray(response);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject fromJson = array.getJSONObject(i);
+                MyArray data = new MyArray();
+                data.select_date = fromJson.getString("select_date");
+                data.count_days = fromJson.getInt("count_days");
+                data.p2_state = fromJson.getInt("p2_state");
+                data.p3_state = fromJson.getInt("p3_state");
+                data.p2_need_m3 = fromJson.getInt("p2_irrig_need_mm");
+                rec_data.add(data);
+            }
+            Log.i("massive", String.valueOf(rec_data.size()));
+        } catch (Exception e) {
+            Log.e("Debug", "Error in parsing");
+        }
     }
 }

@@ -101,9 +101,16 @@ public class MainFragment extends Fragment {
         String response = pref.getString("response", "");
         Log.e("Debug", response);
         parseResponse(response);
+        int state1;
+        int state2;
 
-        int state1 = rec_data.get(0).p2_state;
-        int state2 = rec_data.get(0).p3_state;
+        if(rec_data.size()!=0) {
+            state1 = rec_data.get(0).p2_state;
+            state2 = rec_data.get(0).p3_state;
+        }else{
+            state1 = 0;
+            state2 = 0;
+        }
 
         if(state1==1) {
             state_field2.setText("Необходимо орошение!");

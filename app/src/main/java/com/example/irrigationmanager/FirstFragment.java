@@ -125,14 +125,26 @@ public class FirstFragment extends Fragment {
         });
 
         first_stop.setEnabled(false);
-        int state = rec_data.get(0).p3_state;
+        int state;
+        int days;
+        int minute;
+
+        if(rec_data.size()!=0) {
+            state = rec_data.get(0).p3_state;
+            days = rec_data.get(0).count_days;
+            minute = rec_data.get(0).p3_need_min;
+        }else{
+            state = 0;
+            days = 0;
+            minute = 0;
+        }
 
         if(state==1) {
-            String sourceString = "Прошло дней: " + rec_data.get(0).count_days + "<br>Орошение: <b>необходимо орошение</b>";
+            String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>необходимо орошение</b>";
             text_status_plot3.setText(Html.fromHtml(sourceString));
-            plot3_rec_min.setText(rec_data.get(0).p3_need_min+ " мин.");
+            plot3_rec_min.setText(minute + " мин.");
         }else{
-            String sourceString = "Прошло дней: " + rec_data.get(0).count_days + "<br>Орошение: <b>орошени не нужно</b>";
+            String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>орошени не нужно</b>";
             text_status_plot3.setText(Html.fromHtml(sourceString));
             plot3_rec_min.setText("0 мин.");
         }

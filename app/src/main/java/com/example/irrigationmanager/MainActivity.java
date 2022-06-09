@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.irrigationmanager.tools.MyArray;
 import com.example.irrigationmanager.tools.NetworkManager;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -136,21 +135,17 @@ public class MainActivity extends AppCompatActivity {
                     StringBuilder sb = new StringBuilder();
                     String line;
                     while ((line = br.readLine()) != null) {
-                        sb.append(line + "\n");
+                        sb.append(line).append("\n");
                     }
                     br.close();
                     conn.disconnect();
                     String response = sb.toString();
 
-                    if (response != null) {
-                        Log.i("MSG", response);
+                    Log.i("MSG", response);
 
-                        SharedPreferences.Editor editor = activity.getApplicationContext().getSharedPreferences("root_data", 0).edit();
-                        editor.putString("response", response);
-                        editor.apply();
-                    } else {
-                        Toast.makeText(getBaseContext(), "Server is not responding!", Toast.LENGTH_SHORT).show();
-                    }
+                    SharedPreferences.Editor editor = activity.getApplicationContext().getSharedPreferences("root_data", 0).edit();
+                    editor.putString("response", response);
+                    editor.apply();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -237,13 +232,31 @@ public class MainActivity extends AppCompatActivity {
         String fname = Objects.requireNonNull(Objects.requireNonNull(navController.getCurrentDestination()).getLabel()).toString();
         Log.i("MSG2", fname);
 
-        if (fname.equals("fragment_auth")) activity.finish();
-        else if (fname.equals("fragment_main")) activity.finish();
-        else if (fname.equals("fragment_second")) navController.navigate(R.id.mainFragment);
-        else if (fname.equals("fragment_third")) navController.navigate(R.id.mainFragment);
-        else if (fname.equals("fragment_info")) navController.navigate(R.id.mainFragment);
-        else if (fname.equals("fragment_fourth")) navController.navigate(R.id.secondFragment);
-        else if (fname.equals("fragment_first")) navController.navigate(R.id.mainFragment);
-        else navController.navigate(R.id.mainFragment);
+        switch (fname) {
+            case "fragment_auth":
+                activity.finish();
+                break;
+            case "fragment_main":
+                activity.finish();
+                break;
+            case "fragment_second":
+                navController.navigate(R.id.mainFragment);
+                break;
+            case "fragment_third":
+                navController.navigate(R.id.mainFragment);
+                break;
+            case "fragment_info":
+                navController.navigate(R.id.mainFragment);
+                break;
+            case "fragment_fourth":
+                navController.navigate(R.id.secondFragment);
+                break;
+            case "fragment_first":
+                navController.navigate(R.id.mainFragment);
+                break;
+            default:
+                navController.navigate(R.id.mainFragment);
+                break;
+        }
     }
 }

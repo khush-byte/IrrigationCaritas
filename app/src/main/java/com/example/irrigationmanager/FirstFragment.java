@@ -29,7 +29,9 @@ import com.example.irrigationmanager.tools.NetworkManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +57,7 @@ public class FirstFragment extends Fragment {
     ArrayList<MyArray> rec_data;
     boolean looped = true;
     int rec_min = 1;
+    Long current_time;
     int min = 0;
     boolean isAlarm = false;
     MediaPlayer alarm;
@@ -111,8 +114,8 @@ public class FirstFragment extends Fragment {
         String response = pref.getString("response", "");
         parseResponse(response);
 
-        plot3_rec_min.setText(rec_min+" мин.");
         rec_min = rec_data.get(0).p3_need_min;
+        //plot3_rec_min.setText(rec_min+" мин.");
 
         first_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +150,7 @@ public class FirstFragment extends Fragment {
         }else{
             String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>орошени не нужно</b>";
             text_status_plot3.setText(Html.fromHtml(sourceString));
-            plot3_rec_min.setText("0 мин.");
+            plot3_rec_min.setText(minute + " мин.");
         }
 
         MotionLayout motionLayout = view.findViewById(R.id.motionLayout1);
@@ -196,6 +199,9 @@ public class FirstFragment extends Fragment {
         first_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                current_time = System.currentTimeMillis()/1000;
+                long then = System.currentTimeMillis(); // See note below
+
                 motionLayout.transitionToStart();
                 first_start.setEnabled(false);
                 first_stop.setEnabled(true);
@@ -207,14 +213,24 @@ public class FirstFragment extends Fragment {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
-                        num[0]++;
-                        if(num[0]==60){
+                        //Long tsLong = System.currentTimeMillis()/1000;
+                        long now = System.currentTimeMillis(); // See note below
+
+                        /*if(num[0]<60) {
+                            num[0] = (int) (tsLong - current_time);
+                        }else{
+                            num[0] = 0;
+                            current_time = System.currentTimeMillis()/1000;
+                        }*/
+                        /*if(num[0]>59){
                             min++;
                             num[0] = 0;
-                        }
-                        sec[0] = num[0]+"";
-                        if(sec[0].length()<2) sec[0] = "0" + sec[0];
-                        count_field.setText(min+" мин. "+sec[0]+" сек.");
+                        }*/
+                        //sec[0] = num[0]+"";
+                        //if(sec[0].length()<2) sec[0] = "0" + sec[0];
+                        long _minutes = TimeUnit.MILLISECONDS.toMinutes(now - then);
+                        min = (int) _minutes;
+                        count_field.setText(min + " мин.");
 
                         if(rec_min!= 0 && rec_min == min && !isAlarm){
                             alarm.start();

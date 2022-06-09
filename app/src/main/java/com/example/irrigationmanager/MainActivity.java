@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.irrigationmanager.tools.MyArray;
 import com.example.irrigationmanager.tools.NetworkManager;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;

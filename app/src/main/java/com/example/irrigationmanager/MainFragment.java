@@ -1,11 +1,13 @@
 package com.example.irrigationmanager;
 
+import static com.example.irrigationmanager.MainActivity.date;
 import static com.example.irrigationmanager.MainActivity.isPump;
 import static com.example.irrigationmanager.MainActivity.isSend;
 import static com.example.irrigationmanager.MainActivity.minutes;
 import static com.example.irrigationmanager.MainActivity.plot_number;
 import static com.example.irrigationmanager.MainActivity.water_level;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -49,7 +51,8 @@ public class MainFragment extends Fragment {
     private ConstraintLayout btn_plot1;
     private ConstraintLayout btn_plot2;
     private ConstraintLayout btn_plot3;
-    private TextView state_field2, state_field3;
+    public Button reload_btn;
+    private TextView state_field2, state_field3, update_info;
     ArrayList<MyArray> rec_data;
     public MainFragment() {
         // Required empty public constructor
@@ -82,6 +85,7 @@ public class MainFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,16 +97,30 @@ public class MainFragment extends Fragment {
         btn_plot3 = view.findViewById(R.id.plot_three);
         state_field2 = view.findViewById(R.id.state_field2);
         state_field3 = view.findViewById(R.id.state_field3);
+        reload_btn = view.findViewById(R.id.reload_btn);
+        update_info = view.findViewById(R.id.update_info);
         isSend = false;
         isPump = false;
         rec_data = new ArrayList<>();
+        ((MainActivity) requireActivity()).getRecommendation();
 
         SharedPreferences pref = view.getContext().getSharedPreferences("root_data", 0);
         String response = pref.getString("response", "");
-        Log.e("Debug", response);
+        //Log.e("Debug", response);
         parseResponse(response);
         int state1;
         int state2;
+
+        update_info.setText("Последний раз данные обновлены: " + rec_data.get(0).select_date);
+
+        String date2 = update_info.getText().toString().substring(32);
+        String date3 = date.substring(0, 10);
+        //Log.e("Debug", String.valueOf(date2.length())+String.valueOf(date3.length()));
+        if(date2.equals(date3)){
+            update_info.setTextColor(Color.GRAY);
+        }else{
+            update_info.setTextColor(Color.RED);
+        }
 
         if(rec_data.size()!=0) {
             state1 = rec_data.get(0).p2_state;
@@ -182,6 +200,14 @@ public class MainFragment extends Fragment {
             }
         });
 
+        reload_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reload_btn.setText("Загрузка...");
+                ((MainActivity) requireActivity()).setUpdate();
+            }
+        });
+
         return view;
     }
 
@@ -199,9 +225,9 @@ public class MainFragment extends Fragment {
                 data.p3_need_min = fromJson.getInt("p3_rec_time_min");
                 rec_data.add(data);
             }
-            Log.i("massive" , String.valueOf(rec_data.size()));
+            //Log.i("massive" , String.valueOf(rec_data.size()));
         } catch(Exception e){
-            Log.e("Debug", "Error in parsing");
+            //Log.e("Debug", "Error in parsing");
         }
     }
 }

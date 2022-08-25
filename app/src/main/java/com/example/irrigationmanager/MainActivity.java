@@ -5,12 +5,14 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.irrigationmanager.tools.MyArray;
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         String sign = MD5(currentDate + "bCctS9eqoYaZl21a");
         rec_data.clear();
+        //Log.i("JSON", "Got recomendation");
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -141,12 +144,77 @@ public class MainActivity extends AppCompatActivity {
                     conn.disconnect();
                     String response = sb.toString();
 
-                    Log.i("MSG", response);
+                    //Log.i("MSG", response);
+                    String a = response.substring(0,1);
 
-                    SharedPreferences.Editor editor = activity.getApplicationContext().getSharedPreferences("root_data", 0).edit();
-                    editor.putString("response", response);
-                    editor.apply();
+                    if(!a.equals("0")) {
+                        //Log.i("MSG2", "Good");
+                        SharedPreferences.Editor editor = activity.getApplicationContext().getSharedPreferences("root_data", 0).edit();
+                        editor.putString("response", response);
+                        editor.apply();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
 
+    public void setUpdate() {
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        String sign = MD5(currentDate + "bCctS9eqoYaZl21a");
+        rec_data.clear();
+        //Log.i("JSON", "Got recomendation");
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("https://wwcs.tj/meteo/irrigation/schedule.php");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    conn.setRequestProperty("Accept", "application/json");
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
+
+                    JSONObject jsonParam = new JSONObject();
+                    jsonParam.put("sign", sign);
+                    jsonParam.put("datetime", currentDate);
+                    jsonParam.put("select_date", select_date);
+
+                    //Log.i("JSON", jsonParam.toString());
+                    DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                    os.writeBytes(jsonParam.toString());
+
+                    os.flush();
+                    os.close();
+
+                    //Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line).append("\n");
+                    }
+                    br.close();
+                    conn.disconnect();
+                    String response = sb.toString();
+
+                    //Log.i("MSG", response);
+                    String a = response.substring(0,1);
+
+                    if(!a.equals("0")) {
+                        //Log.i("MSG2", "Good");
+                        SharedPreferences.Editor editor = activity.getApplicationContext().getSharedPreferences("root_data", 0).edit();
+                        editor.putString("response", response);
+                        editor.apply();
+
+                        NavController navController = Navigation.findNavController(activity, R.id.nav_host_main);
+                        navController.navigate(R.id.mainFragment);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

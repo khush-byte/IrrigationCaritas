@@ -146,11 +146,13 @@ public class FirstFragment extends Fragment {
         if(state==1) {
             String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>необходимо орошение</b>";
             text_status_plot3.setText(Html.fromHtml(sourceString));
-            plot3_rec_min.setText(minute + " мин.");
+            //plot3_rec_min.setText(minute + " мин.");
+            plot3_rec_min.setText(minute + " мин. ("+minute/60+" ч. "+minute%60+" м.)");
         }else{
             String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>орошени не нужно</b>";
             text_status_plot3.setText(Html.fromHtml(sourceString));
-            plot3_rec_min.setText(minute + " мин.");
+            //plot3_rec_min.setText(minute + " мин.");
+            plot3_rec_min.setText(minute + " мин. ("+minute/60+" ч. "+minute%60+" м.)");
         }
 
         MotionLayout motionLayout = view.findViewById(R.id.motionLayout1);

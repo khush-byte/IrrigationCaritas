@@ -12,7 +12,7 @@
         android:id="@+id/textView4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="Тестовое поле №3\nПроектное, орошение при помощи насоса"
         android:textSize="17sp"
@@ -36,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="24dp"
         android:gravity="center"
         android:text="Информация"
@@ -75,7 +75,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="24dp"
         android:gravity="center"
         android:text="Статус посева"
@@ -113,10 +113,10 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp"
         android:background="@android:drawable/editbox_dropdown_light_frame"
         app:layout_constraintBottom_toTopOf="@+id/divider4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -129,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="10dp"
             android:text="Рекомендованное время орошения:"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="000 мин."
-            android:textSize="28sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
@@ -149,10 +149,10 @@
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/motionLayout1"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="3dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="3dp"
             android:background="@drawable/button_on"
             app:layoutDescription="@xml/fragment_first_xml_constraintlayout3_scene"
             app:layout_constraintBottom_toTopOf="@+id/textView19"
@@ -179,12 +179,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="24dp"
             android:text="000 мин."
-            android:textSize="28sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/first_start"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/motionLayout1" />
 
         <TextView
             android:id="@+id/textView19"
@@ -203,7 +204,7 @@
             android:layout_height="56dp"
             android:layout_marginStart="21dp"
             android:layout_marginEnd="11dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="3dp"
             android:backgroundTint="#009688"
             android:text="СТАРТ"
             android:textSize="16sp"
@@ -211,7 +212,8 @@
             app:layout_constraintEnd_toStartOf="@+id/first_stop"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/count_field" />
 
         <Button
             android:id="@+id/first_stop"
@@ -220,14 +222,15 @@
             android:layout_height="56dp"
             android:layout_marginStart="11dp"
             android:layout_marginEnd="21dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="3dp"
             android:backgroundTint="#F44336"
             android:text="СТОП"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@+id/first_start" />
+            app:layout_constraintStart_toEndOf="@+id/first_start"
+            app:layout_constraintTop_toBottomOf="@+id/count_field" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -50,7 +50,7 @@ public class ThirdFragment extends Fragment {
     private Button third_back;
     private Button third_send;
     private ConstraintLayout water_box;
-    private TextView report_title, report_date, report_type;
+    private TextView report_title, report_date, report_type, report_counter;
     private EditText report_min, report_tomson, report_person;
     private String ir_type;
 
@@ -107,6 +107,7 @@ public class ThirdFragment extends Fragment {
         report_min = view.findViewById(R.id.report_min);
         report_tomson = view.findViewById(R.id.report_tomson);
         report_person = view.findViewById(R.id.report_person);
+        report_counter = view.findViewById(R.id.report_counter);
 
         report_title.setText("Тестовое поле №"+plot_number);
         report_date.setText("Время: " + date);
@@ -140,7 +141,7 @@ public class ThirdFragment extends Fragment {
         third_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(report_min.getText().toString().length()>0 && report_person.getText().toString().length()>0){
+                if(report_min.getText().toString().length()>0 && report_person.getText().toString().length()>0 && report_counter.getText().toString().length()>0){
                     int min = 0;
                     if(minutes==0) {
                         min = Integer.parseInt(report_min.getText().toString());
@@ -187,15 +188,16 @@ public class ThirdFragment extends Fragment {
                     jsonParam.put("minutes", minute);
                     jsonParam.put("w_level", w_level);
                     jsonParam.put("name", convertStringToUTF8(name));
+                    jsonParam.put("counter", report_counter.getText().toString());
 
-                    Log.i("JSON", jsonParam.toString());
+                    //Log.i("JSON", jsonParam.toString());
                     DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                     os.writeBytes(jsonParam.toString());
 
                     os.flush();
                     os.close();
 
-                    Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+                    //Log.i("STATUS", String.valueOf(conn.getResponseCode()));
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     StringBuilder sb = new StringBuilder();
@@ -205,7 +207,7 @@ public class ThirdFragment extends Fragment {
                     }
                     br.close();
 
-                    Log.i("MSG" , sb.toString());
+                    //Log.i("MSG" , sb.toString());
                     String result = sb.toString();
 
                     JSONObject obj = new JSONObject(result);

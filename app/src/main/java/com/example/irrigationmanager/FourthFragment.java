@@ -121,11 +121,12 @@ public class FourthFragment extends Fragment {
         if(state==1) {
             String sourceString = "Прошло дней: " + days+ "<br>Орошение: <b>необходимо орошение</b>";
             text_status_plot2.setText(Html.fromHtml(sourceString));
-            plot2_rec_min.setText(minutes + " мин.");
+            plot2_rec_min.setText(minutes + " мин. ("+minutes/60+" ч. "+minutes%60+" м.)");
         }else{
             String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>орошени не нужно</b>";
             text_status_plot2.setText(Html.fromHtml(sourceString));
-            plot2_rec_min.setText("0 мин.");
+            //plot2_rec_min.setText(minutes + " мин.");
+            plot2_rec_min.setText(minutes + " мин. ("+minutes/60+" ч. "+minutes%60+" м.)");
         }
 
         fourth_back.setOnClickListener(new View.OnClickListener() {

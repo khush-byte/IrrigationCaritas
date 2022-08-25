@@ -49,7 +49,7 @@
             android:id="@+id/report_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="22dp"
             android:text="Тестовое поле №1"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="22dp"
             android:text="Способ орошения: канал."
             android:textSize="20sp"
             android:textStyle="normal"
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:text="Время: 30.05.2022 22:55"
             android:textSize="20sp"
             android:textStyle="normal"
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="22dp"
             android:text="Время орошения: "
             android:textSize="20sp"
             android:textStyle="normal"
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="минут."
+            android:text="минут"
             android:textSize="20sp"
             android:textStyle="normal"
             app:layout_constraintStart_toEndOf="@+id/report_min"
@@ -108,14 +108,13 @@
             android:id="@+id/report_min"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:ems="10"
             android:gravity="center"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:minHeight="48dp"
             android:textColor="#0A5795"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView18"
             app:layout_constraintStart_toEndOf="@+id/textView18"
@@ -159,22 +158,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="7dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18">
+            app:layout_constraintTop_toBottomOf="@+id/report_min">
 
             <EditText
                 android:id="@+id/report_tomson"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:minHeight="48dp"
                 android:textColor="#0A5795"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView27"
                 app:layout_constraintStart_toEndOf="@+id/textView27"
@@ -198,12 +195,76 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
-                android:text="см."
+                android:text="см"
                 android:textSize="20sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@+id/report_tomson"
                 app:layout_constraintTop_toTopOf="@+id/textView27" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/counter_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/water_box">
+
+            <EditText
+                android:id="@+id/report_counter"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="6"
+                android:minHeight="48dp"
+                android:textColor="#0A5795"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView270"
+                app:layout_constraintStart_toEndOf="@+id/textView270"
+                app:layout_constraintTop_toTopOf="@+id/textView270"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/textView280"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="м"
+                android:textSize="20sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@+id/report_counter"
+                app:layout_constraintTop_toTopOf="@+id/textView270" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="2dp"
+                android:text="3"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/report_counter"
+                app:layout_constraintTop_toTopOf="@+id/textView280" />
+
+            <TextView
+                android:id="@+id/textView270"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:text="Показания счетчика: "
+                android:textSize="20sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View

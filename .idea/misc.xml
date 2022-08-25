@@ -22,12 +22,15 @@
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/ic_baseline_vpn_key.xml" value="0.1565" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/plot_apply.xml" value="0.1565" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/drawable/plot_okey.xml" value="0.1305" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/activity_check.xml" value="0.24166666666666667" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/activity_main.xml" value="0.24166666666666667" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/activity_reg.xml" value="0.22135416666666666" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/activity_splash.xml" value="0.24166666666666667" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_auth.xml" value="0.25" />
-        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_first.xml" value="0.4" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_first.xml" value="0.264" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_fourth.xml" value="0.25" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_info.xml" value="0.25" />
-        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_main.xml" value="0.4" />
+        <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_main.xml" value="0.264" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_second.xml" value="0.264" />
         <entry key="..\:/Flutter/IrrigationCaritas/app/src/main/res/layout/fragment_third.xml" value="0.4" />
         <entry key="..\:/Flutter/Irrigationmanager/app/src/main/res/drawable/background_main.xml" value="0.1675" />

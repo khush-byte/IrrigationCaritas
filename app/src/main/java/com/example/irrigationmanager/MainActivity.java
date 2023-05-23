@@ -18,9 +18,12 @@ import com.example.irrigationmanager.tools.NetworkManager;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -35,6 +38,14 @@ import java.util.Objects;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 
+import okhttp3.Headers;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import retrofit2.Retrofit;
+
 public class MainActivity extends AppCompatActivity {
     TextView data_field;
     Activity activity;
@@ -46,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isSend = false;
     private String select_date;
     private ArrayList<MyArray> rec_data;
+    private final OkHttpClient client = new OkHttpClient();
 
     @SuppressLint({"SourceLockedOrientationActivity", "SetTextI18n"})
     @Override
@@ -85,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         handler.postDelayed(refresh, 1000);
+
+        //sendPost();
     }
 
     @SuppressLint("SetTextI18n")
@@ -109,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("https://wwcs.tj/meteo/irrigation/schedule.php");
+                    URL url = new URL("http://kiosk.tj/irrigation/schedule.php");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
@@ -122,14 +136,14 @@ public class MainActivity extends AppCompatActivity {
                     jsonParam.put("datetime", currentDate);
                     jsonParam.put("select_date", select_date);
 
-                    //Log.i("JSON", jsonParam.toString());
+                    //Log.i("MyTag", jsonParam.toString());
                     DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                     os.writeBytes(jsonParam.toString());
 
                     os.flush();
                     os.close();
 
-                    //Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+                    //Log.i("MyTag", String.valueOf(conn.getResponseCode()));
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     StringBuilder sb = new StringBuilder();
@@ -141,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     conn.disconnect();
                     String response = sb.toString();
 
-                    Log.i("MSG", response);
+                    //Log.i("MyTag", response);
 
                     SharedPreferences.Editor editor = activity.getApplicationContext().getSharedPreferences("root_data", 0).edit();
                     editor.putString("response", response);
@@ -169,68 +183,11 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    public void getRecPlot2() {
-        String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-        String sign = MD5(currentDate + "bCctS9eqoYaZl21a");
-
-        Thread thread = new Thread(new Runnable() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL("https://wwcs.tj/meteo/irrigation/tomson.php");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-                    conn.setRequestProperty("Accept", "application/json");
-                    conn.setDoOutput(true);
-                    conn.setDoInput(true);
-
-                    JSONObject jsonParam = new JSONObject();
-                    jsonParam.put("sign", sign);
-                    jsonParam.put("datetime", currentDate);
-                    jsonParam.put("tomson", water_level);
-
-                    //Log.i("JSON", jsonParam.toString());
-                    DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                    os.writeBytes(jsonParam.toString());
-
-                    os.flush();
-                    os.close();
-
-                    //Log.i("STATUS", String.valueOf(conn.getResponseCode()));
-
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line).append("\n");
-                    }
-                    br.close();
-                    conn.disconnect();
-                    String response = sb.toString();
-
-                    String min = response.replaceAll("[^0-9]", "");
-                    //Log.i("MSG2", min + " мин.");
-                    //plot2_rec_min.setText(min + " мин.");
-                    minutes = Integer.parseInt(min);
-
-                    NavController navController = Navigation.findNavController(activity, R.id.nav_host_main);
-                    navController.navigate(R.id.fourthFragment);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-    }
-
     @Override
     public void onBackPressed() {
         NavController navController = Navigation.findNavController(activity, R.id.nav_host_main);
         String fname = Objects.requireNonNull(Objects.requireNonNull(navController.getCurrentDestination()).getLabel()).toString();
-        Log.i("MSG2", fname);
+        //Log.i("MSG2", fname);
 
         switch (fname) {
             case "fragment_auth":

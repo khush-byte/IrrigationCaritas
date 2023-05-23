@@ -120,18 +120,23 @@
         android:background="@android:drawable/editbox_dropdown_light_frame"
         app:layout_constraintBottom_toTopOf="@+id/divider4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider3">
+        app:layout_constraintTop_toBottomOf="@+id/divider3"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/textView20"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="17dp"
-            android:text="Рекомендованное время орошения:"
-            android:textSize="16sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center"
+            android:text="Рекомендованный объем воды\nдля орошения:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -139,53 +144,15 @@
             android:id="@+id/plot2_rec_min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="000 мин."
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-        <TextView
-            android:id="@+id/count_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="Введите фактическое время\nорошения в минутах:"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/plot2_minute_field"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/plot2_rec_min"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <TextView
-            android:id="@+id/count_field6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="29dp"
-            android:text="минут"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/plot2_minute_field"
-            app:layout_constraintTop_toTopOf="@+id/plot2_minute_field" />
-
-        <EditText
-            android:id="@+id/plot2_minute_field"
-            android:layout_width="210dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:textSize="38sp"
-            android:textStyle="normal"
+            android:text="0 м3"
+            android:textColor="@color/color_primary"
+            android:textSize="52sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/count_field"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:layout_constraintEnd_toEndOf="@+id/textView20"
+            app:layout_constraintStart_toStartOf="@+id/textView20"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -225,7 +192,7 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/color_primary"
         android:fontFamily="sans-serif-light"
-        android:text="ПЕРЕДАТЬ ДАННЫЕ"
+        android:text="СОЗДАТЬ ОТЧЁТ"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

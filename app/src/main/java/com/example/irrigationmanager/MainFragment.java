@@ -99,7 +99,7 @@ public class MainFragment extends Fragment {
 
         SharedPreferences pref = view.getContext().getSharedPreferences("root_data", 0);
         String response = pref.getString("response", "");
-        Log.e("Debug", response);
+        //Log.e("MyTag", "fragment "+response);
         parseResponse(response);
         int state1;
         int state2;
@@ -132,16 +132,16 @@ public class MainFragment extends Fragment {
             btn_plot3.setBackgroundResource(R.drawable.plot_okey);
         }
 
-        btn_plot1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isPump = false;
-                NavOptions.Builder navBuilder =  new NavOptions.Builder();
-                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
-                NavHostFragment.findNavController(MainFragment.this)
-                        .navigate(R.id.firstFragment, null, navBuilder.build());
-            }
-        });
+//        btn_plot1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                isPump = false;
+//                NavOptions.Builder navBuilder =  new NavOptions.Builder();
+//                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+//                NavHostFragment.findNavController(MainFragment.this)
+//                        .navigate(R.id.thirdFragment, null, navBuilder.build());
+//            }
+//        });
 
         btn_plot1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +152,7 @@ public class MainFragment extends Fragment {
                 NavOptions.Builder navBuilder =  new NavOptions.Builder();
                 navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
                 NavHostFragment.findNavController(MainFragment.this)
-                        .navigate(R.id.secondFragment, null, navBuilder.build());
+                        .navigate(R.id.thirdFragment, null, navBuilder.build());
             }
         });
 
@@ -165,7 +165,7 @@ public class MainFragment extends Fragment {
                 NavOptions.Builder navBuilder =  new NavOptions.Builder();
                 navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
                 NavHostFragment.findNavController(MainFragment.this)
-                        .navigate(R.id.secondFragment, null, navBuilder.build());
+                        .navigate(R.id.fourthFragment, null, navBuilder.build());
             }
         });
 
@@ -195,13 +195,13 @@ public class MainFragment extends Fragment {
                 data.count_days = fromJson.getInt("count_days");
                 data.p2_state = fromJson.getInt("p2_state");
                 data.p3_state = fromJson.getInt("p3_state");
-                data.p2_need_mm = fromJson.getInt("p2_irrig_need_mm");
-                data.p3_need_min = fromJson.getInt("p3_rec_time_min");
+                data.p2_need_m3 = fromJson.getInt("p2_irrig_need_m3");
+                data.p3_need_m3 = fromJson.getInt("p3_irrig_need_m3");
                 rec_data.add(data);
             }
-            Log.i("massive" , String.valueOf(rec_data.size()));
+            //Log.i("MyTag" , String.valueOf(rec_data.size()));
         } catch(Exception e){
-            Log.e("Debug", "Error in parsing");
+            //Log.e("Debug", "Error in parsing");
         }
     }
 }

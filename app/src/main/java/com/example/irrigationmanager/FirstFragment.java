@@ -102,9 +102,9 @@ public class FirstFragment extends Fragment {
 
         first_back = view.findViewById(R.id.first_back);
         first_send = view.findViewById(R.id.first_send);
-        first_start = view.findViewById(R.id.first_start);
-        first_stop = view.findViewById(R.id.first_stop);
-        count_field = view.findViewById(R.id.count_field);
+//        first_start = view.findViewById(R.id.first_start);
+//        first_stop = view.findViewById(R.id.first_stop);
+//        count_field = view.findViewById(R.id.count_field);
         plot3_rec_min = view.findViewById(R.id.plot3_rec_min);
         text_status_plot3 = view.findViewById(R.id.text_status_plot3);
         minutes = 0;
@@ -114,13 +114,12 @@ public class FirstFragment extends Fragment {
         String response = pref.getString("response", "");
         parseResponse(response);
 
-        rec_min = rec_data.get(0).p3_need_min;
+        //rec_min = rec_data.get(0).p3_need_min;
         //plot3_rec_min.setText(rec_min+" мин.");
 
         first_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alarm.stop();
                 NavOptions.Builder navBuilder =  new NavOptions.Builder();
                 navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
                 NavHostFragment.findNavController(FirstFragment.this)
@@ -128,7 +127,7 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        first_stop.setEnabled(false);
+        //first_stop.setEnabled(false);
         int state;
         int days;
         int minute;
@@ -136,7 +135,7 @@ public class FirstFragment extends Fragment {
         if(rec_data.size()!=0) {
             state = rec_data.get(0).p3_state;
             days = rec_data.get(0).count_days;
-            minute = rec_data.get(0).p3_need_min;
+            //minute = rec_data.get(0).p3_need_min;
         }else{
             state = 0;
             days = 0;
@@ -146,103 +145,103 @@ public class FirstFragment extends Fragment {
         if(state==1) {
             String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>необходимо орошение</b>";
             text_status_plot3.setText(Html.fromHtml(sourceString));
-            plot3_rec_min.setText(minute + " мин.");
+            plot3_rec_min.setText(rec_data.get(0).p3_need_m3 + " м3");
         }else{
             String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>орошени не нужно</b>";
             text_status_plot3.setText(Html.fromHtml(sourceString));
-            plot3_rec_min.setText(minute + " мин.");
+            plot3_rec_min.setText("0 м3");
         }
 
-        MotionLayout motionLayout = view.findViewById(R.id.motionLayout1);
+//        MotionLayout motionLayout = view.findViewById(R.id.motionLayout1);
+//
+//        motionLayout.transitionToEnd();
 
-        motionLayout.transitionToEnd();
+//        motionLayout.setTransitionListener(new MotionLayout.TransitionListener()
+//        {
+//            @Override
+//            public void onTransitionStarted(MotionLayout motionLayout, int i, int i1)
+//            {
+//
+//            }
+//
+//            @Override
+//            public void onTransitionChange(MotionLayout motionLayout, int i, int i1, float v)
+//            {
+//
+//            }
+//
+//            @Override
+//            public void onTransitionCompleted(MotionLayout motionLayout, int i)
+//            {
+//                if(!looped)
+//                    motionLayout.transitionToStart();
+//
+//                else
+//                    motionLayout.transitionToEnd();
+//
+//                looped = !looped;
+//            }
+//
+//            @Override
+//            public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v)
+//            {
+//
+//            }
+//        });
 
-        motionLayout.setTransitionListener(new MotionLayout.TransitionListener()
-        {
-            @Override
-            public void onTransitionStarted(MotionLayout motionLayout, int i, int i1)
-            {
+//        Handler handler = new Handler();
+//        final Runnable[] refresh = new Runnable[1];
+//
+//        alarm = MediaPlayer.create(getContext(), R.raw.alarm);
+//        alarm.setLooping(true);
 
-            }
-
-            @Override
-            public void onTransitionChange(MotionLayout motionLayout, int i, int i1, float v)
-            {
-
-            }
-
-            @Override
-            public void onTransitionCompleted(MotionLayout motionLayout, int i)
-            {
-                if(!looped)
-                    motionLayout.transitionToStart();
-
-                else
-                    motionLayout.transitionToEnd();
-
-                looped = !looped;
-            }
-
-            @Override
-            public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v)
-            {
-
-            }
-        });
-
-        Handler handler = new Handler();
-        final Runnable[] refresh = new Runnable[1];
-
-        alarm = MediaPlayer.create(getContext(), R.raw.alarm);
-        alarm.setLooping(true);
-
-        first_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                current_time = System.currentTimeMillis()/1000;
-                long then = System.currentTimeMillis(); // See note below
-
-                motionLayout.transitionToStart();
-                first_start.setEnabled(false);
-                first_stop.setEnabled(true);
-                first_send.setEnabled(false);
-
-                final int[] num = {0};
-                final String[] sec = {""};
-                refresh[0] = new Runnable() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void run() {
-                        //Long tsLong = System.currentTimeMillis()/1000;
-                        long now = System.currentTimeMillis(); // See note below
-
-                        /*if(num[0]<60) {
-                            num[0] = (int) (tsLong - current_time);
-                        }else{
-                            num[0] = 0;
-                            current_time = System.currentTimeMillis()/1000;
-                        }*/
-                        /*if(num[0]>59){
-                            min++;
-                            num[0] = 0;
-                        }*/
-                        //sec[0] = num[0]+"";
-                        //if(sec[0].length()<2) sec[0] = "0" + sec[0];
-                        long _minutes = TimeUnit.MILLISECONDS.toMinutes(now - then);
-                        min = (int) _minutes;
-                        count_field.setText(min + " мин.");
-
-                        if(rec_min!= 0 && rec_min == min && !isAlarm){
-                            alarm.start();
-                            isAlarm = true;
-                        }
-
-                        handler.postDelayed(this, 1000);
-                    }
-                };
-                handler.postDelayed(refresh[0], 1000);
-            }
-        });
+//        first_start.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                current_time = System.currentTimeMillis()/1000;
+//                long then = System.currentTimeMillis(); // See note below
+//
+//                //motionLayout.transitionToStart();
+////                first_start.setEnabled(false);
+////                first_stop.setEnabled(true);
+////                first_send.setEnabled(false);
+//
+//                final int[] num = {0};
+//                final String[] sec = {""};
+//                refresh[0] = new Runnable() {
+//                    @SuppressLint("SetTextI18n")
+//                    @Override
+//                    public void run() {
+//                        //Long tsLong = System.currentTimeMillis()/1000;
+//                        long now = System.currentTimeMillis(); // See note below
+//
+//                        /*if(num[0]<60) {
+//                            num[0] = (int) (tsLong - current_time);
+//                        }else{
+//                            num[0] = 0;
+//                            current_time = System.currentTimeMillis()/1000;
+//                        }*/
+//                        /*if(num[0]>59){
+//                            min++;
+//                            num[0] = 0;
+//                        }*/
+//                        //sec[0] = num[0]+"";
+//                        //if(sec[0].length()<2) sec[0] = "0" + sec[0];
+//                        long _minutes = TimeUnit.MILLISECONDS.toMinutes(now - then);
+//                        min = (int) _minutes;
+//                        count_field.setText(min + " мин.");
+//
+//                        if(rec_min!= 0 && rec_min == min && !isAlarm){
+//                            alarm.start();
+//                            isAlarm = true;
+//                        }
+//
+//                        handler.postDelayed(this, 1000);
+//                    }
+//                };
+//                handler.postDelayed(refresh[0], 1000);
+//            }
+//        });
 
         first_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,21 +254,21 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        first_stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                motionLayout.transitionToEnd();
-                handler.removeCallbacks(refresh[0]);
-                isPump = true;
-                minutes = min;
-                alarm.stop();
-
-                NavOptions.Builder navBuilder =  new NavOptions.Builder();
-                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.thirdFragment, null, navBuilder.build());
-            }
-        });
+//        first_stop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                motionLayout.transitionToEnd();
+//                handler.removeCallbacks(refresh[0]);
+//                isPump = true;
+//                minutes = min;
+//                alarm.stop();
+//
+//                NavOptions.Builder navBuilder =  new NavOptions.Builder();
+//                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+//                NavHostFragment.findNavController(FirstFragment.this)
+//                        .navigate(R.id.thirdFragment, null, navBuilder.build());
+//            }
+//        });
 
         return view;
     }
@@ -284,8 +283,8 @@ public class FirstFragment extends Fragment {
                 data.count_days = fromJson.getInt("count_days");
                 data.p2_state = fromJson.getInt("p2_state");
                 data.p3_state = fromJson.getInt("p3_state");
-                data.p2_need_mm = fromJson.getInt("p2_irrig_need_mm");
-                data.p3_need_min = fromJson.getInt("p3_rec_time_min");
+                data.p2_need_m3 = fromJson.getInt("p2_irrig_need_m3");
+                data.p3_need_m3 = fromJson.getInt("p3_irrig_need_m3");
                 rec_data.add(data);
             }
             Log.i("massive" , String.valueOf(rec_data.size()));

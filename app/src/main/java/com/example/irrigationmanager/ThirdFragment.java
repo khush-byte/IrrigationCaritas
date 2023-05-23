@@ -3,9 +3,8 @@ package com.example.irrigationmanager;
 import static com.example.irrigationmanager.MainActivity.date;
 import static com.example.irrigationmanager.MainActivity.isPump;
 import static com.example.irrigationmanager.MainActivity.isSend;
-import static com.example.irrigationmanager.MainActivity.minutes;
 import static com.example.irrigationmanager.MainActivity.plot_number;
-import static com.example.irrigationmanager.MainActivity.water_level;
+
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -51,7 +50,7 @@ public class ThirdFragment extends Fragment {
     private Button third_send;
     private ConstraintLayout water_box;
     private TextView report_title, report_date, report_type;
-    private EditText report_min, report_tomson, report_person;
+    private EditText water_meter, water_used, report_person;
     private String ir_type;
 
     public ThirdFragment() {
@@ -104,8 +103,8 @@ public class ThirdFragment extends Fragment {
         report_title = view.findViewById(R.id.report_title);
         report_date = view.findViewById(R.id.report_date);
         report_type = view.findViewById(R.id.report_type);
-        report_min = view.findViewById(R.id.report_min);
-        report_tomson = view.findViewById(R.id.report_tomson);
+        water_meter = view.findViewById(R.id.water_meter);
+        water_used = view.findViewById(R.id.water_used);
         report_person = view.findViewById(R.id.report_person);
 
         report_title.setText("Тестовое поле №"+plot_number);
@@ -115,8 +114,8 @@ public class ThirdFragment extends Fragment {
         String user_name = pref.getString("login", "");
         report_person.setText(user_name);
 
-        if(minutes!=0) report_min.setText(minutes+"");
-        report_tomson.setText(water_level+"");
+//        if(minutes!=0) report_min.setText(minutes+"");
+//        report_tomson.setText(water_level+"");
 
         if(isPump){
             report_type.setText("Способ орошения: насос.");
@@ -140,29 +139,23 @@ public class ThirdFragment extends Fragment {
         third_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(report_min.getText().toString().length()>0 && report_person.getText().toString().length()>0){
-                    int min = 0;
-                    if(minutes==0) {
-                        min = Integer.parseInt(report_min.getText().toString());
-                    }else{
-                        min=minutes;
-                    }
-                    sendData(plot_number,ir_type,min,water_level,report_person.getText().toString(), view);
+                if(water_used.getText().toString().length()>0 && water_meter.getText().toString().length()>0 && report_person.getText().toString().length()>0){
+                    sendData(plot_number,ir_type, Integer.parseInt(water_meter.getText().toString()), Integer.parseInt(water_used.getText().toString()), report_person.getText().toString(), view);
                 }
                 else  Toast.makeText(view.getContext(), "Заполните все поля!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        if(isPump){
-            water_box.setVisibility(View.GONE);
-        }else{
-            water_box.setVisibility(View.VISIBLE);
-        }
+//        if(isPump){
+//            water_box.setVisibility(View.GONE);
+//        }else{
+//            water_box.setVisibility(View.VISIBLE);
+//        }
 
         return view;
     }
 
-    public void sendData(int plot, String type, int minute, int w_level, String name, View v) {
+    public void sendData(int plot, String type, int meterValue, int waterUsed, String name, View v) {
         String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         String sign = MD5(currentDate + "bCctS9eqoYaZl21a");
         third_send.setEnabled(false);
@@ -171,7 +164,7 @@ public class ThirdFragment extends Fragment {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("https://wwcs.tj/meteo/irrigation/monitoring.php");
+                    URL url = new URL("http://kiosk.tj/irrigation/insert.php");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
@@ -184,18 +177,18 @@ public class ThirdFragment extends Fragment {
                     jsonParam.put("plot", plot);
                     jsonParam.put("datetime", currentDate);
                     jsonParam.put("type", type);
-                    jsonParam.put("minutes", minute);
-                    jsonParam.put("w_level", w_level);
+                    jsonParam.put("meterValue", meterValue);
+                    jsonParam.put("waterUsed", waterUsed);
                     jsonParam.put("name", convertStringToUTF8(name));
 
-                    Log.i("JSON", jsonParam.toString());
+                    Log.i("MyTag", "Send: "+jsonParam.toString());
                     DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                     os.writeBytes(jsonParam.toString());
 
                     os.flush();
                     os.close();
 
-                    Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+                    //Log.i("MyTag", String.valueOf(conn.getResponseCode()));
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     StringBuilder sb = new StringBuilder();
@@ -205,12 +198,12 @@ public class ThirdFragment extends Fragment {
                     }
                     br.close();
 
-                    Log.i("MSG" , sb.toString());
+                    //Log.i("MyTag" , "result "+sb.toString());
                     String result = sb.toString();
 
                     JSONObject obj = new JSONObject(result);
 
-                    if(obj.getString("result").equals("0")) {
+                    if(obj.getString("status").equals("200")) {
                         NavOptions.Builder navBuilder =  new NavOptions.Builder();
                         NavHostFragment.findNavController(ThirdFragment.this)
                             .navigate(R.id.infoFragment, null, navBuilder.build());

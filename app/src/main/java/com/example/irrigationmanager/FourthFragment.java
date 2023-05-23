@@ -98,7 +98,7 @@ public class FourthFragment extends Fragment {
 
         fourth_back = view.findViewById(R.id.fourth_back);
         fourth_send = view.findViewById(R.id.fourth_send);
-        plot2_minute_field = view.findViewById(R.id.plot2_minute_field);
+        //plot2_minute_field = view.findViewById(R.id.plot2_minute_field);
         text_status_plot2 = view.findViewById(R.id.text_status_plot2);
         plot2_rec_min = view.findViewById(R.id.plot2_rec_min);
         rec_data = new ArrayList<>();
@@ -121,11 +121,11 @@ public class FourthFragment extends Fragment {
         if(state==1) {
             String sourceString = "Прошло дней: " + days+ "<br>Орошение: <b>необходимо орошение</b>";
             text_status_plot2.setText(Html.fromHtml(sourceString));
-            plot2_rec_min.setText(minutes + " мин.");
+            plot2_rec_min.setText(rec_data.get(0).p2_need_m3 + " м3");
         }else{
             String sourceString = "Прошло дней: " + days + "<br>Орошение: <b>орошени не нужно</b>";
             text_status_plot2.setText(Html.fromHtml(sourceString));
-            plot2_rec_min.setText("0 мин.");
+            plot2_rec_min.setText("0 м3");
         }
 
         fourth_back.setOnClickListener(new View.OnClickListener() {
@@ -134,23 +134,17 @@ public class FourthFragment extends Fragment {
                 NavOptions.Builder navBuilder =  new NavOptions.Builder();
                 navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
                 NavHostFragment.findNavController(FourthFragment.this)
-                        .navigate(R.id.secondFragment, null, navBuilder.build());
+                        .navigate(R.id.mainFragment, null, navBuilder.build());
             }
         });
 
         fourth_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(plot2_minute_field.getText().toString().length()>0) {
-                    isPump = false;
-                    minutes = Integer.parseInt(plot2_minute_field.getText().toString());
-                    NavOptions.Builder navBuilder = new NavOptions.Builder();
-                    navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
-                    NavHostFragment.findNavController(FourthFragment.this)
-                            .navigate(R.id.thirdFragment, null, navBuilder.build());
-                }else{
-                    Toast.makeText(view.getContext(), "Минуты не указаны!", Toast.LENGTH_SHORT).show();
-                }
+                NavOptions.Builder navBuilder = new NavOptions.Builder();
+                navBuilder.setExitAnim(R.anim.exit).setEnterAnim(R.anim.enter);
+                NavHostFragment.findNavController(FourthFragment.this)
+                        .navigate(R.id.thirdFragment, null, navBuilder.build());
             }
         });
 
@@ -167,8 +161,8 @@ public class FourthFragment extends Fragment {
                 data.count_days = fromJson.getInt("count_days");
                 data.p2_state = fromJson.getInt("p2_state");
                 data.p3_state = fromJson.getInt("p3_state");
-                data.p2_need_mm = fromJson.getInt("p2_irrig_need_mm");
-                data.p3_need_min = fromJson.getInt("p3_rec_time_min");
+                data.p2_need_m3 = fromJson.getInt("p2_irrig_need_m3");
+                data.p3_need_m3 = fromJson.getInt("p3_irrig_need_m3");
                 rec_data.add(data);
             }
             Log.i("massive" , String.valueOf(rec_data.size()));

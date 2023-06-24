@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.mainFragment);
                 break;
             case "fragment_fourth":
-                navController.navigate(R.id.secondFragment);
+                navController.navigate(R.id.mainFragment);
                 break;
             case "fragment_first":
                 navController.navigate(R.id.mainFragment);
